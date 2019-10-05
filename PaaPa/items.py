@@ -10,5 +10,5 @@ import scrapy
 
 class PaapaItem(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
+    gongShiFile = scrapy.Field()
     pass
