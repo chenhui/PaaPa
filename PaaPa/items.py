@@ -10,5 +10,7 @@ import scrapy
 
 class PaapaItem(scrapy.Item):
     # define the fields for your item here like:
-    gongShiFile = scrapy.Field()
+    title = scrapy.Field()
+    date=scrapy.Field()
+    url=scrapy.Field()
     pass
