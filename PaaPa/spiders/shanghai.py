@@ -7,16 +7,14 @@ class ShanghaiSpider(scrapy.Spider):
     name = 'shanghai'
     allowed_domains = ['zjw.sh.gov.cn']
     start_urls = ['http://zjw.sh.gov.cn/zjw/sgs/index.html']
+    
+    def start_requests(self):
+        for i in range(2,28):
+            self.start_urls.append('http://zjw.sh.gov.cn/zjw/sgs/index_{}.html'.format(i))
+        for url in self.start_urls:
+            yield scrapy.Request(url,self.parse)
 
     def parse(self, response):
-        # file="shanghai.html"
-        # with open(file,'wb') as f:
-        #     str=response.body
-        #     f.write(str)
-        # i=1
-        # str=response.xpath('//*[@id="main"]/div[1]/div/div/div[2]/div/ul/li[{}]/a/text()'.format(i)).extract()[0]
-
-        items=[]
         for i in range(1,16):
             item=PaapaItem()
             sub_selector=response.xpath('//*[@id="main"]/div[1]/div/div/div[2]/div/ul/li[{}]'.format(i))
@@ -26,7 +24,6 @@ class ShanghaiSpider(scrapy.Spider):
             item['url']="http://zjw.sh.gov.cn"+url
             date=sub_selector.xpath('./span/text()').extract()[0]
             item['date']=date
-            items.append(item)
-        print(items)
-        return items
+            yield(item)
+
 
