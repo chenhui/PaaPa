@@ -24,6 +24,7 @@ class ShanghaiSpider(scrapy.Spider):
             item['url']="http://zjw.sh.gov.cn"+url
             date=sub_selector.xpath('./span/text()').extract()[0]
             item['date']=date
+            ipdb.set_trace()
             yield(item)
 
 
